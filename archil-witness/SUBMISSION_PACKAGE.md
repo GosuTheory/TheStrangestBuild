@@ -1,5 +1,7 @@
 # WITNESS: Measured, Not Asserted.
 
+**Submission status:** Submitted by the project owner.
+
 **Official Submission Form:** https://tally.so/r/1Wddgb  
 **Hackathon Portal:** https://archil-hackathon.pages.dev/  
 **Schedule:** Table demos at **9:30 PM PST** (90s demo + 60s Q&A) · Submissions close at **10:00 PM PST**
@@ -8,7 +10,7 @@
 
 ## 1. The Table Encounter (90 Seconds)
 
-- **Opening line:** *"Trust me, bro." — that is still how most agent harnesses verify what a worker did.*
+- **Opening line:** *"Trust me, bro." — here is a claim another process can check.*
 - **Engineering coordinate:** *"Think of this as CI for agent state integrity."*
 - **What the judge sees first (already open in [`epistemic_witness_demo.html`](epistemic_witness_demo.html)):**
   - **Left column (`[mode=assistant]`):** Branch A's worker says:  
@@ -50,7 +52,7 @@ This pattern only works if holding a baseline, forking isolated continuations, a
 
 1. Enforced authority separation at the mount boundary: The controller mounts the same disk writable for an approved worker step and strictly `read_only=True` for pre-approval gating (`279.63 ms` probe) and witness inspection (`540.47 ms`), without giving the worker `ARCHIL_API_KEY`.
 2. Shared baseline + fast isolated branches: Cutting the contract checkpoint (`ckpt-t1-contract`) and forking Branch A (`203.51 ms`) and Branch B (`461.39 ms`) from the exact same baseline gives the witness two comparable endpoints without copying VMs or re-running setup.
-3. Multi-disk read-only comparison in one microVM: `archil.exec` mounts the baseline state and both candidate branches side-by-side (`t1`, `branch_a`, `branch_b`) so an independent process can inspect what changed across states in under half a second.
+3. Multi-disk read-only comparison in one microVM: `archil.exec` mounts the baseline state and both candidate branches side-by-side (`t1`, `branch_a`, `branch_b`) so a separately constrained process can inspect the retained states (540.47 ms in the recorded run).
 ```
 
 ### How It Fits Tonight's Three Tracks (Judged in Every Track)
@@ -72,7 +74,7 @@ This pattern only works if holding a baseline, forking isolated continuations, a
 
 ### Situation 3: Auditing Cross-Agent Handoffs and Post-Compaction Continuations
 - **The situation:** A long-running session compacts its context or hands a workspace to a second agent, which claims to be anchored to a specific prior checkpoint and transcript boundary.
-- **What WITNESS lets you do/discover:** Before letting the new turn write to the disk, the controller holds the mount read-only and verifies that the agent's cited boundary ID and file baseline match the physical `transcript.jsonl` and checkpoint on disk—catching stale or hallucinated handoff state before it overwrites work.
+- **What WITNESS lets you do/discover:** Compare a continuation's claimed boundary ID with the retained `transcript.jsonl:10` and inspect the baseline and candidate files. The current demo demonstrates a structural identifier check; it does not establish semantic recovery or the correctness of the handoff.
 
 ---
 

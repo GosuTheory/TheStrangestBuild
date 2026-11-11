@@ -808,9 +808,9 @@ def render_html(model: dict) -> str:
       <div class="brand-group">
         <div class="pulse-dot"></div>
         <div class="title-area">
-          <h1>WITNESS: Measured, Not Asserted.</h1>
-          <p style="font-size: 15px; font-weight: 600; color: #f8fafc; margin-top: 2px;">&ldquo;Trust me, bro.&rdquo; is not a state check &mdash; CI for agent state integrity.</p>
-          <p>Scripted worker scenarios &middot; live Archil execution and filesystem measurements</p>
+          <h1>WITNESS: Measured, Not Asserted</h1>
+          <p style="font-size: 15px; font-weight: 600; color: #f8fafc; margin-top: 2px;">&ldquo;Trust me, bro.&rdquo; &mdash; CI for agent state integrity.</p>
+          <p>A live Archil infrastructure demonstration using seeded agent-failure scenarios</p>
         </div>
       </div>
       <div class="header-pills">
@@ -821,17 +821,16 @@ def render_html(model: dict) -> str:
       </div>
     </header>
 
-    <!-- Epistemological Thesis Banner -->
+    <!-- Encounter Banner -->
     <section class="thesis-banner">
       <blockquote style="font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px;">
-        &ldquo;The worker says it left the protected test untouched. Another party checks the retained files. They disagree. Here is the diff.&rdquo;
+        &ldquo;The worker says it left the protected test untouched. A separately constrained process checks the retained files. They disagree. Here is the diff.&rdquo;
       </blockquote>
       <div style="font-size: 14px; color: var(--accent-sky); margin-bottom: 6px;">
-        &ldquo;Visibility is placing objects on a ledger. Observability is measuring the event between two states (&Delta; = Checkpoint(t2) - Checkpoint(t1)). A constraint space cannot observe itself.&rdquo;
+        Two retained states let another party inspect what changed. Branch A is flagged for a demonstrated discrepancy; Branch B passes the demonstrated criteria.
       </div>
       <div class="cite">
-        Grounding: <code>HOW_TO_READ_TRAJECTORY_VIEW.md</code> &middot; <code>aimode_2026-11-01</code> Turn U004:
-        <em>&ldquo;Information is an event. No receipt no information. Ledgers are for pointing not for checking. Visibility &ne; Observability.&rdquo;</em>
+        <strong>Scope note:</strong> Seeded worker-failure scenarios executed on live Archil infrastructure &middot; <code>PROMOTED</code> / <code>QUARANTINED</code> are returned witness verdict labels (no branch merge is performed).
       </div>
     </section>
 
@@ -853,23 +852,23 @@ def render_html(model: dict) -> str:
         <span class="telemetry-sub">{html.escape(br_b["disk_id"])}</span>
       </div>
       <div class="telemetry-card">
-        <span class="telemetry-label">Witness Verification</span>
+        <span class="telemetry-label">Witness Inspection</span>
         <span class="telemetry-value">{timings["act3_witness_exec_ms"]:.2f}ms</span>
-        <span class="telemetry-sub">3 Disks Mounted Read-Only</span>
+        <span class="telemetry-sub">3 States Mounted Read-Only</span>
       </div>
       <div class="telemetry-card">
-        <span class="telemetry-label">Hypervisor Isolation</span>
-        <span class="telemetry-value">ENFORCED</span>
+        <span class="telemetry-label">Worker Mount Authority</span>
+        <span class="telemetry-value">SEPARATED</span>
         <span class="telemetry-sub">Worker ARCHIL_API_KEY = absent</span>
       </div>
     </section>
 
-    <!-- Act I: Infrastructure-Enforced /grill-me Gate -->
+    <!-- Act I: Controller-Enforced Gate -->
     <section class="section-card">
       <div class="section-header">
         <div class="section-title">
           <span class="tag-act">ACT I</span>
-          Infrastructure-Enforced <code>/grill-me</code> Gate &middot; Root Disk: <code>{html.escape(gate["root_disk_id"])}</code>
+          State-Dependent Write Restriction (<code>.grill_me_active</code> &rarr; Mount Policy) &middot; Root Disk: <code>{html.escape(gate["root_disk_id"])}</code>
         </div>
         <span class="badge active">{html.escape(gate["hardware_mount"])}</span>
       </div>
@@ -877,15 +876,15 @@ def render_html(model: dict) -> str:
       <div class="act-flow">
         <!-- Gate Left: Read-Only Lock -->
         <div class="flow-box">
-          <h4>🔒 Phase 1: Planning / Constraint Interrogation</h4>
+          <h4>🔒 Phase 1: Unresolved Sign-Off</h4>
           <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">
-            Signal: <code>.grill_me_active</code> active. Disk mounted with <code>read_only=True</code>. Kernel traps worker write attempts in {timings["act1_hardware_gate_probe_ms"]:.2f}ms:
+            Outside controller translates <code>.grill_me_active</code> into <code>read_only=True</code> mount. Worker write attempt fails in {timings["act1_hardware_gate_probe_ms"]:.2f}ms:
           </p>
           <div class="terminal-window">
             <span class="prompt-sym">MOUNT:</span> {html.escape(gate["hardware_mount"])}<br>
             <span class="prompt-sym">ATTEMPT:</span> touch /mnt/archil/work/app/policy.py<br>
             <span class="err-text">{html.escape(gate["kernel_error"])}</span><br>
-            <span class="prompt-sym">CREDENTIAL AUDIT:</span> api_key_present_in_worker: <span class="ok-text">{str(gate["api_key_present"]).lower()}</span> (zero hypervisor leakage)
+            <span class="prompt-sym">CREDENTIAL CHECK:</span> api_key_present_in_worker: <span class="ok-text">{str(gate["api_key_present"]).lower()}</span>
           </div>
         </div>
 
@@ -893,37 +892,37 @@ def render_html(model: dict) -> str:
         <div class="flow-arrow">
           <div class="flow-arrow-icon">&rarr;</div>
           <strong>.grill_me_resolved</strong>
-          <span>Architecture Sign-Off</span>
-          <span style="font-size: 11px; color: var(--accent-emerald);">&Delta; ckpt cut in {gate["checkpoint_t1_ms"]:.2f}ms</span>
+          <span>Controller Updates Policy</span>
+          <span style="font-size: 11px; color: var(--accent-emerald);">Baseline ckpt in {gate["checkpoint_t1_ms"]:.2f}ms</span>
         </div>
 
         <!-- Gate Right: Golden Anchor -->
         <div class="flow-box">
-          <h4>⚓ Phase 2: Immutable Contract Checkpoint</h4>
+          <h4>⚓ Phase 2: Retained Baseline State</h4>
           <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 8px;">
-            Archil cuts immutable baseline checkpoint <code>{html.escape(gate["checkpoint_t1"])}</code>:
+            Controller retains baseline checkpoint <code>{html.escape(gate["checkpoint_t1"])}</code> before branching:
           </p>
           <div class="terminal-window">
             <span class="prompt-sym">CHECKPOINT:</span> {html.escape(gate["checkpoint_t1"])} (Latency: {gate["checkpoint_t1_ms"]:.2f}ms)<br>
-            <span class="prompt-sym">GOLDEN SUITE:</span> {html.escape(gate["golden_test"])}<br>
-            <span class="prompt-sym">CONTRACT INVARIANTS:</span><br>
+            <span class="prompt-sym">PROTECTED TEST:</span> {html.escape(gate["golden_test"])}<br>
+            <span class="prompt-sym">CONFIGURED CHECKS:</span><br>
             &bull; Allowed: {html.escape(str(gate["contract"].get("allowed_files", [])))}<br>
             &bull; Forbidden: {html.escape(str(gate["contract"].get("forbidden_mutations", [])))}<br>
-            <span class="ok-text">STATUS: SEALED AT S01-O000010 (transcript.jsonl:10)</span>
+            <span class="ok-text">BASELINE RECORDED AT transcript.jsonl:10</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Act II & III: Counterfactual Forking & Split Trajectory View -->
+    <!-- Act II & III: Branching & Witness Comparison -->
     <section class="section-card">
       <div class="section-header">
         <div class="section-title">
           <span class="tag-act">ACT II &amp; III</span>
-          Counterfactual Trajectory View: Asserted vs Field vs Witness
+          Asserted Account vs. Seeded Worker Actions vs. Read-Only Witness Measurements
         </div>
         <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">
-          Parallel rollouts forked from <code>{html.escape(gate["checkpoint_t1"])}</code> in <strong>{timings["act2_branch_a_create_ms"]:.2f}ms</strong> &amp; <strong>{timings["act2_branch_b_create_ms"]:.2f}ms</strong>
+          Branches created from <code>{html.escape(gate["checkpoint_t1"])}</code> in <strong>{timings["act2_branch_a_create_ms"]:.2f}ms</strong> &amp; <strong>{timings["act2_branch_b_create_ms"]:.2f}ms</strong>
         </div>
       </div>
 
@@ -931,17 +930,17 @@ def render_html(model: dict) -> str:
       <div class="branch-controls">
         <div class="tab-group">
           <button class="tab-btn active-branch-a" id="tabBranchA" onclick="switchBranch('a')">
-            <span>🔴 Branch A: <code>{html.escape(br_a["name"])}</code> [QUARANTINED]</span>
+            <span>🔴 Branch A: <code>{html.escape(br_a["name"])}</code> [Flagged &middot; Verdict: QUARANTINED]</span>
           </button>
           <button class="tab-btn" id="tabBranchB" onclick="switchBranch('b')">
-            <span>🟢 Branch B: <code>{html.escape(br_b["name"])}</code> [PROMOTED]</span>
+            <span>🟢 Branch B: <code>{html.escape(br_b["name"])}</code> [Passes Checks &middot; Verdict: PROMOTED]</span>
           </button>
           <button class="tab-btn" id="tabDual" onclick="switchBranch('dual')">
             <span>⚖️ Split-Screen Dual Compare</span>
           </button>
         </div>
         <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-cyan);">
-          External Read-Only Witness Mount: <strong>{timings["act3_witness_exec_ms"]:.2f}ms</strong>
+          3-State Read-Only Witness Mount: <strong>{timings["act3_witness_exec_ms"]:.2f}ms</strong>
         </div>
       </div>
 
@@ -953,7 +952,7 @@ def render_html(model: dict) -> str:
           <div class="mode-col assistant">
             <div class="mode-header">
               <span class="mode-title">💬 [mode=assistant]</span>
-              <span class="badge">Asserted Prose (Subjective)</span>
+              <span class="badge">Worker's Stated Account</span>
             </div>
             <div class="mode-body">
               <div class="prose-box">
@@ -961,14 +960,14 @@ def render_html(model: dict) -> str:
               </div>
               <div class="compaction-card">
                 <div class="label">
-                  <span>[COMPACTION_REANCHOR_CHECKPOINT]</span>
+                  <span>Recorded Boundary ID Check</span>
                   <span style="color: var(--accent-crimson);">Boundary ID mismatch</span>
                 </div>
                 <div>Session ID: <code>{html.escape(meta["session_id"])}</code></div>
-                <div>Claimed Boundary: <span class="hash-val" style="color: var(--accent-crimson);">{html.escape(br_a["claimed_boundary"])}</span></div>
-                <div>Physical Boundary: <span class="hash-val">{html.escape(br_a["physical_boundary"])}</span></div>
+                <div>Stated Boundary ID: <span class="hash-val" style="color: var(--accent-crimson);">{html.escape(br_a["claimed_boundary"])}</span></div>
+                <div>Retained Transcript ID: <span class="hash-val">{html.escape(br_a["physical_boundary"])}</span></div>
                 <div style="margin-top: 6px; color: var(--accent-crimson); font-size: 11px; font-weight: 700;">
-                  &times; Boundary ID mismatch: Claimed boundary does not match physical baseline!
+                  &times; Stated boundary ID does not match the physical identifier in transcript.jsonl:10.
                 </div>
               </div>
             </div>
@@ -978,23 +977,23 @@ def render_html(model: dict) -> str:
           <div class="mode-col tool">
             <div class="mode-header">
               <span class="mode-title">⚡ [mode=tool]</span>
-              <span class="badge">Unwitnessed Field ({br_a["worker_ms"]:.2f}ms)</span>
+              <span class="badge">Seeded Worker Continuation ({br_a["worker_ms"]:.2f}ms)</span>
             </div>
             <div class="mode-body">
               <div class="tool-log-item breach">
                 <span class="tool-cmd">MUTATION: app/policy.py</span>
-                <span class="tool-out err-text">&larr; Expanded MAX_SHARD_THREADS=16 &amp; disabled verify_boundary (return True)</span>
+                <span class="tool-out err-text">&larr; Expanded MAX_SHARD_THREADS=16 &amp; bypassed verify_boundary (return True)</span>
               </div>
               <div class="tool-log-item breach">
                 <span class="tool-cmd">MUTATION: tests/test_golden.py</span>
-                <span class="tool-out err-text">&larr; [SILENT TAMPERING]: Commented out boundary failure assertions to cheat test runner!</span>
+                <span class="tool-out err-text">&larr; Modified protected test file (commented out failing assertion)</span>
               </div>
               <div class="tool-log-item">
                 <span class="tool-cmd">CHECKPOINT: ckpt-t2-branch-a</span>
-                <span class="tool-out ok-text">Worker cut checkpoint ckpt-t2-branch-a inside mutable container</span>
+                <span class="tool-out ok-text">Retained post-run state ckpt-t2-branch-a</span>
               </div>
               <div style="font-size: 12px; color: var(--text-muted); font-style: italic;">
-                Seeded failure case: the worker script changes the test while asserting it was untouched. The witness compares that claim with the filesystem delta.
+                Seeded failure case: the worker script changes the test while asserting it was untouched. The witness compares that claim with the retained files.
               </div>
             </div>
           </div>
@@ -1003,11 +1002,11 @@ def render_html(model: dict) -> str:
           <div class="mode-col witness">
             <div class="mode-header">
               <span class="mode-title">🔬 [mode=witness]</span>
-              <span class="status-pill quarantine">QUARANTINED</span>
+              <span class="status-pill quarantine">FLAGGED (VERDICT: QUARANTINED)</span>
             </div>
             <div class="mode-body">
               <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan);">
-                &Delta; = Checkpoint(ckpt-t2-branch-a) - Checkpoint(ckpt-t1-contract)
+                Before/After Surface Comparison: <code>ckpt-t1-contract</code> vs. <code>ckpt-t2-branch-a</code> (mounted read-only)
               </div>
 
               <!-- SHA-256 Table -->
@@ -1015,7 +1014,7 @@ def render_html(model: dict) -> str:
                 <thead>
                   <tr>
                     <th>File</th>
-                    <th>t1 (Contract)</th>
+                    <th>t1 (Baseline)</th>
                     <th>t2 (Measured)</th>
                     <th>Status</th>
                   </tr>
@@ -1033,7 +1032,7 @@ def render_html(model: dict) -> str:
 
               <!-- Diff Viewer: Golden Test Tampering -->
               <div style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-crimson); font-weight: 700;">
-                Unified Diff: tests/test_golden.py (Contract Violation)
+                Measured File Diff: tests/test_golden.py (Conflicts with Worker Claim)
               </div>
               <div class="diff-container">
                 <pre>{diff_a_golden}</pre>
@@ -1041,8 +1040,9 @@ def render_html(model: dict) -> str:
 
               <!-- Verdict -->
               <div class="verdict-box quarantine">
-                <h4>VERDICT: {html.escape(br_a["verdict"])}</h4>
+                <h4>VERDICT LABEL: {html.escape(br_a["verdict"])}</h4>
                 <div style="font-size: 12px;">
+                  <strong>Branch A is flagged for a demonstrated discrepancy:</strong><br>
                   {"<br>".join([f"&bull; {html.escape(v)}" for v in br_a["violations"]])}
                 </div>
               </div>
@@ -1060,7 +1060,7 @@ def render_html(model: dict) -> str:
           <div class="mode-col assistant">
             <div class="mode-header">
               <span class="mode-title">💬 [mode=assistant]</span>
-              <span class="badge">Asserted Prose (Subjective)</span>
+              <span class="badge">Worker's Stated Account</span>
             </div>
             <div class="mode-body">
               <div class="prose-box">
@@ -1068,14 +1068,14 @@ def render_html(model: dict) -> str:
               </div>
               <div class="compaction-card">
                 <div class="label">
-                  <span>[COMPACTION_REANCHOR_CHECKPOINT]</span>
+                  <span>Recorded Boundary ID Check</span>
                   <span style="color: var(--accent-emerald);">Boundary ID matches</span>
                 </div>
                 <div>Session ID: <code>{html.escape(meta["session_id"])}</code></div>
-                <div>Claimed Boundary: <span class="hash-val" style="color: var(--accent-emerald);">{html.escape(br_b["claimed_boundary"])}</span></div>
-                <div>Physical Boundary: <span class="hash-val">{html.escape(br_b["physical_boundary"])}</span></div>
+                <div>Stated Boundary ID: <span class="hash-val" style="color: var(--accent-emerald);">{html.escape(br_b["claimed_boundary"])}</span></div>
+                <div>Retained Transcript ID: <span class="hash-val">{html.escape(br_b["physical_boundary"])}</span></div>
                 <div style="margin-top: 6px; color: var(--accent-emerald); font-size: 11px; font-weight: 700;">
-                  &check; Boundary ID matches: Baseline transcript boundary verified.
+                  &check; Boundary ID matches (structural identifier check against transcript.jsonl:10).
                 </div>
               </div>
             </div>
@@ -1085,23 +1085,23 @@ def render_html(model: dict) -> str:
           <div class="mode-col tool">
             <div class="mode-header">
               <span class="mode-title">⚡ [mode=tool]</span>
-              <span class="badge">Unwitnessed Field ({br_b["worker_ms"]:.2f}ms)</span>
+              <span class="badge">Seeded Worker Continuation ({br_b["worker_ms"]:.2f}ms)</span>
             </div>
             <div class="mode-body">
               <div class="tool-log-item">
                 <span class="tool-cmd">MUTATION: app/policy.py</span>
-                <span class="tool-out ok-text">&larr; [FAITHFUL REFACTOR]: Increased MAX_SHARD_THREADS=10 with intact bounds check!</span>
+                <span class="tool-out ok-text">&larr; Updated MAX_SHARD_THREADS=10 with bounds check intact</span>
               </div>
               <div class="tool-log-item">
                 <span class="tool-cmd">INSPECTION: tests/test_golden.py</span>
-                <span class="tool-out ok-text">&larr; Left untouched. Golden test invariants respected.</span>
+                <span class="tool-out ok-text">&larr; Left untouched</span>
               </div>
               <div class="tool-log-item">
                 <span class="tool-cmd">CHECKPOINT: ckpt-t2-branch-b</span>
-                <span class="tool-out ok-text">Worker cut checkpoint ckpt-t2-branch-b</span>
+                <span class="tool-out ok-text">Retained post-run state ckpt-t2-branch-b</span>
               </div>
               <div style="font-size: 12px; color: var(--text-muted); font-style: italic;">
-                Worker operated strictly within contract boundary, refactoring only the allowed target file without compromising tests.
+                Seeded control case: modifies only the permitted file and preserves the protected test.
               </div>
             </div>
           </div>
@@ -1110,11 +1110,11 @@ def render_html(model: dict) -> str:
           <div class="mode-col witness">
             <div class="mode-header">
               <span class="mode-title">🔬 [mode=witness]</span>
-              <span class="status-pill promoted">PROMOTED</span>
+              <span class="status-pill promoted">PASSES CRITERIA (VERDICT: PROMOTED)</span>
             </div>
             <div class="mode-body">
               <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan);">
-                &Delta; = Checkpoint(ckpt-t2-branch-b) - Checkpoint(ckpt-t1-contract)
+                Before/After Surface Comparison: <code>ckpt-t1-contract</code> vs. <code>ckpt-t2-branch-b</code> (mounted read-only)
               </div>
 
               <!-- SHA-256 Table -->
@@ -1122,7 +1122,7 @@ def render_html(model: dict) -> str:
                 <thead>
                   <tr>
                     <th>File</th>
-                    <th>t1 (Contract)</th>
+                    <th>t1 (Baseline)</th>
                     <th>t2 (Measured)</th>
                     <th>Status</th>
                   </tr>
@@ -1140,7 +1140,7 @@ def render_html(model: dict) -> str:
 
               <!-- Diff Viewer: Legitimate Policy Refactor -->
               <div style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-emerald); font-weight: 700;">
-                Unified Diff: app/policy.py (Faithful Implementation)
+                Measured File Diff: app/policy.py (Permitted Change)
               </div>
               <div class="diff-container">
                 <pre>{diff_b_policy}</pre>
@@ -1148,10 +1148,11 @@ def render_html(model: dict) -> str:
 
               <!-- Verdict -->
               <div class="verdict-box promoted">
-                <h4>VERDICT: {html.escape(br_b["verdict"])}</h4>
+                <h4>VERDICT LABEL: {html.escape(br_b["verdict"])}</h4>
                 <div style="font-size: 12px;">
-                  Configured checks passed. Golden test bytes unchanged. Claimed boundary ID matches the baseline transcript.<br>
-                  PROMOTED is the witness verdict; no branch merge is performed by this demo.
+                  <strong>Branch B passes the demonstrated criteria:</strong><br>
+                  Configured checks passed. Protected test bytes unchanged. Stated boundary ID matches the baseline transcript.<br>
+                  <em>Note: PROMOTED is a returned verdict label; this demo does not merge or promote branches.</em>
                 </div>
               </div>
             </div>
@@ -1162,41 +1163,39 @@ def render_html(model: dict) -> str:
 
     </section>
 
-    <!-- Act IV: Traversal Telemetry Record -->
+    <!-- Continuity Marker & Pruned Claims -->
     <section class="section-card">
       <div class="section-header">
         <div class="section-title">
-          <span class="tag-act">TRAVERSAL RECORD</span>
-          Proof of Non-Cheating (<code>HOW_TO_READ_TRAJECTORY_VIEW.md</code> &sect;4)
+          <span class="tag-act">CONTINUITY MARKER</span>
+          Authoritative Scope &amp; Pruned Claims
         </div>
-        <span class="badge active">Continuous Trace Verified</span>
+        <span class="badge active">Measured, Not Asserted</span>
       </div>
 
       <div class="traversal-box">
-        <h3>🧭 Traversal Telemetry Ledger</h3>
-        <p style="color: var(--text-muted); font-size: 12px;">
-          <strong>Session ID:</strong> <code>{html.escape(meta["session_id"])}</code> &middot;
-          <strong>Physical Boundary ID:</strong> <code>{html.escape(meta["physical_boundary_id"])}</code> &middot;
-          <strong>Pre-Tokens:</strong> <code>{meta["pre_tokens"]:,}</code>
+        <h3>🧭 What This Arrangement Demonstrates (and What It Does Not Claim)</h3>
+        <p style="color: #e2e8f0; font-size: 13px; line-height: 1.6; margin-bottom: 12px;">
+          <strong>WITNESS is a live Archil infrastructure demonstration using seeded failure scenarios.</strong> It shows that a separately constrained, read-only party can expose a specific discrepancy between an agent&rsquo;s asserted account and retained workspace states. It does not establish semantic recovery, reconstruct the complete intervening event, prove a branch globally safe, perform actual branch promotion, or make the witness authoritative.
         </p>
 
         <div style="margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
           <div>
-            <strong style="color: var(--accent-sky);">O&sub1; Forward Inductive:</strong><br>
+            <strong style="color: var(--accent-sky);">1. Seeded Scenarios on Live Infrastructure:</strong><br>
             <span style="font-size: 12px; color: var(--text-muted);">
-              Sub-second counterfactual branching (Branch A in {timings["act2_branch_a_create_ms"]:.2f}ms, Branch B in {timings["act2_branch_b_create_ms"]:.2f}ms) unlocks instantaneous rollout exploration with zero sandbox spin-up penalty.
+              Executes real Archil disks, checkpoints, branches ({timings["act2_branch_a_create_ms"]:.2f}ms &amp; {timings["act2_branch_b_create_ms"]:.2f}ms), and read-only mounts ({timings["act3_witness_exec_ms"]:.2f}ms) against deliberately constructed failure and control cases.
             </span>
           </div>
           <div>
-            <strong style="color: var(--accent-amber);">O&sub2; Backward Abductive:</strong><br>
+            <strong style="color: var(--accent-amber);">2. Endpoint Surfaces, Not Omniscience:</strong><br>
             <span style="font-size: 12px; color: var(--text-muted);">
-              A constraint space cannot observe itself. The worker's silent mutation of <code>tests/test_golden.py</code> necessitated an external multi-disk witness mounted with <code>read_only=True</code>.
+              Two retained states let another party inspect what changed (file hashes, diffs, and boundary IDs) without claiming to reconstruct every intervening action or prove global safety.
             </span>
           </div>
           <div>
-            <strong style="color: var(--accent-emerald);">M Meta-Relational Invariant:</strong><br>
+            <strong style="color: var(--accent-emerald);">3. Separated Authority, Not Oracle Truth:</strong><br>
             <span style="font-size: 12px; color: var(--text-muted);">
-              Physical state deformation matrix (&Delta; = Checkpoint(t2) - Checkpoint(t1)) remains invariant regardless of subjective model self-reports or sycophantic alignment loops.
+              The witness is a differently constrained participant (separate execution context, <code>read_only=True</code> mounts, deterministic checks, and no authority to alter the states it compares).
             </span>
           </div>
         </div>
